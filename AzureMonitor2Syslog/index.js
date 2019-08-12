@@ -52,6 +52,16 @@ module.exports = function (context, myEventHubMessage) {
         if(typeof message === 'object'){
 
             var msg = JSON.parse(JSON.stringify(message));
+            msg.records.forEach((m1, i) => {
+                client.log(JSON.stringify(m1), options, function(error) {        
+                    if (error) {
+                        context.log("error sending message");
+                        context.log(error);
+                    } else {
+                        context.log("sent message successfully");
+                    }
+                });
+            });
             
         }
     });
